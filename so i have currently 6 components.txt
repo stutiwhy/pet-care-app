@@ -1,0 +1,13 @@
+so i have currently 6 components:
+signin
+home
+addactivity
+viewactivity
+nearme
+firstaidhelp
+
+in this project, we will first create a sign in page where user enters name, animal, breed, gender, and date of birth. we submit it. then it opens the home page where there is a navigation bar in the left that has options like
+add activity
+view activities
+near you (leave this empty, we will change later)
+first aid help (this will have some first aid tips for pets)
