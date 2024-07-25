@@ -1,14 +1,15 @@
 // src/components/Home.js
+
 import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { fetchActivities } from "../utils/HandleAPIs";
+import { fetchActivities, deleteActivity } from "../utils/HandleAPIs";
 import AddActivity from "./AddActivity";
 import NearYou from "./NearYou";
 import FirstAidHelp from "./FirstAidHelp";
 import ViewPet from "./ViewPet";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-import "../styles/Home.css"; // Import the CSS file
+import "../styles/Home.css";
 
 const Home = () => {
   const [activities, setActivities] = useState([]);
@@ -82,27 +83,61 @@ const Home = () => {
     });
   };
 
-  const handleCheck = async (activityId, isChecked) => {
-    if (!isChecked) return;
+  const handleCheck = async (activityId, isChecked, activityType) => {
+    if (isChecked) {
+      if (activityType === "one-time") {
+        try {
+          await deleteActivity(activityId);
+          setActivities(prevActivities => prevActivities.filter(activity => activity._id !== activityId));
+          Toastify({
+            text: "One-time activity completed and deleted!",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#4CAF50",
+          }).showToast();
+        } catch (error) {
+          console.error("There was an error deleting the activity!", error);
+          Toastify({
+            text: "Error deleting activity.",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#F44336",
+          }).showToast();
+        }
+      } else {
+        const updatedActivities = activities.map(activity => {
+          if (activity._id === activityId) {
+            return { ...activity, checked: isChecked };
+          }
+          return activity;
+        });
 
-    const updatedActivities = activities.map(activity => {
-      if (activity._id === activityId) {
-        return { ...activity, checked: isChecked };
+        setActivities(updatedActivities);
+        Toastify({
+          text: `Recurring activity "${updatedActivities.find(activity => activity._id === activityId).name}" checked off.`,
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#2196F3",
+        }).showToast();
       }
-      return activity;
-    });
-
-    setActivities(updatedActivities);
+    }
   };
 
   return (
     <div>
       <nav>
         <ul>
-          <li><Link to="/home/add-activity">Add Activity</Link></li>
-          <li><Link to="/home/near-you">Near You</Link></li>
-          <li><Link to="/home/first-aid-help">First Aid Help</Link></li>
-          <li><Link to="/home/view-pets">View Pets</Link></li>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/add-activity">Add Activity</Link></li>
+          <li><Link to="/near-you">Near You</Link></li>
+          <li><Link to="/first-aid-help">First Aid Help</Link></li>
+          <li><Link to="/view-pets">View Pets</Link></li>
         </ul>
       </nav>
       <h1>Home</h1>
@@ -115,7 +150,7 @@ const Home = () => {
               id={activity._id} 
               name={activity.name} 
               checked={activity.checked || false}
-              onChange={(e) => handleCheck(activity._id, e.target.checked)}
+              onChange={(e) => handleCheck(activity._id, e.target.checked, activity.type)}
             />
             <label htmlFor={activity._id}>{activity.name} at {activity.time}</label>
           </li>

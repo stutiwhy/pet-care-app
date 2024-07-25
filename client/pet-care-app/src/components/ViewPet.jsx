@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchPet } from '../utils/HandleAPIs';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+import { Link, Route, Routes } from "react-router-dom";
 
 const ViewPet = () => {
   const [pet, setPet] = useState(null);
@@ -34,6 +35,13 @@ const ViewPet = () => {
 
   return (
     <div>
+        <ul>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/add-activity">Add Activity</Link></li>
+          <li><Link to="/near-you">Near You</Link></li>
+          <li><Link to="/first-aid-help">First Aid Help</Link></li>
+          <li><Link to="/view-pets">View Pets</Link></li>
+        </ul>
       <h1>Pet Details</h1>
       <div>
         <h2>{pet.name}</h2>

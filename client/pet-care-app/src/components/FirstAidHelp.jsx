@@ -1,5 +1,6 @@
 // src/components/FirstAidHelp.jsx
 import React from "react";
+import { Link, Route, Routes } from "react-router-dom";
 
 const FirstAidHelp = () => {
   const tips = [
@@ -27,6 +28,12 @@ const FirstAidHelp = () => {
 
   return (
     <div>
+        <ul>
+          <li><Link to="/add-activity">Add Activity</Link></li>
+          <li><Link to="/near-you">Near You</Link></li>
+          <li><Link to="/first-aid-help">First Aid Help</Link></li>
+          <li><Link to="/view-pets">View Pets</Link></li>
+        </ul>
       <h1>First Aid Help</h1>
       <ul>
         {tips.map((tip, index) => (
