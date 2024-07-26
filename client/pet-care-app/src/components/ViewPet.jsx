@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchPet } from '../utils/HandleAPIs';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ViewPet = () => {
   const [pet, setPet] = useState(null);

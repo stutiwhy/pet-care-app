@@ -1,6 +1,6 @@
 // src/components/AddActivity.js
 import React, { useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { createActivity } from "../utils/HandleAPIs";
 import Toastify from "toastify-js";
@@ -38,8 +38,8 @@ const AddActivity = ({ onAddActivity }) => {
         position: "right",
         backgroundColor: "#4CAF50",
       }).showToast();
-      onAddActivity(newActivity); // Add this line to call the callback
-      navigate("/home/view-activities");
+      onAddActivity(newActivity); 
+      navigate("/home"); 
     } catch (error) {
       console.error("There was an error!", error);
       Toastify({
@@ -53,6 +53,7 @@ const AddActivity = ({ onAddActivity }) => {
     }
   };
 
+
   return (
     <div>
         <ul>
@@ -60,7 +61,7 @@ const AddActivity = ({ onAddActivity }) => {
           <li><Link to="/add-activity">Add Activity</Link></li>
           <li><Link to="/near-you">Near You</Link></li>
           <li><Link to="/first-aid-help">First Aid Help</Link></li>
-          <li><Link to="/view-pets">View Pets</Link></li>
+          <li><Link to="/view-pet">View Pet</Link></li>
         </ul>
       <h1>Add Activity</h1>
       <form onSubmit={handleSubmit}>

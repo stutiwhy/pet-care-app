@@ -1,6 +1,6 @@
 // src/components/FirstAidHelp.jsx
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const FirstAidHelp = () => {
   const tips = [

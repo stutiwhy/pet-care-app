@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import { fetchActivities, deleteActivity } from "../utils/HandleAPIs";
+import { fetchActivities, createActivity, deleteActivity } from "../utils/HandleAPIs";
 import AddActivity from "./AddActivity";
 import NearYou from "./NearYou";
 import FirstAidHelp from "./FirstAidHelp";
@@ -56,8 +56,21 @@ const Home = () => {
     return () => clearInterval(checkActivityTimes);
   }, [activities]);
 
-  const addNewActivity = (newActivity) => {
-    setActivities(prevActivities => [...prevActivities, newActivity]);
+  const addNewActivity = async (newActivity) => {
+    try {
+      const savedActivity = await createActivity(newActivity);
+      setActivities(prevActivities => [...prevActivities, savedActivity]);
+    } catch (error) {
+      console.error("There was an error saving the activity!", error);
+      Toastify({
+        text: "Error saving activity.",
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#F44336",
+      }).showToast();
+    }
   };
 
   const manualCheckActivityTimes = () => {
@@ -137,7 +150,7 @@ const Home = () => {
           <li><Link to="/add-activity">Add Activity</Link></li>
           <li><Link to="/near-you">Near You</Link></li>
           <li><Link to="/first-aid-help">First Aid Help</Link></li>
-          <li><Link to="/view-pets">View Pets</Link></li>
+          <li><Link to="/view-pet">View Pet</Link></li>
         </ul>
       </nav>
       <h1>Home</h1>
@@ -161,7 +174,7 @@ const Home = () => {
         <Route path="add-activity" element={<AddActivity onAddActivity={addNewActivity} />} />
         <Route path="near-you" element={<NearYou />} />
         <Route path="first-aid-help" element={<FirstAidHelp />} />
-        <Route path="view-pets" element={<ViewPet />} />
+        <Route path="view-pet" element={<ViewPet />} />
       </Routes>
     </div>
   );
