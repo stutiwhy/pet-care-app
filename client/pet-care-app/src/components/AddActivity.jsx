@@ -1,10 +1,10 @@
-// src/components/AddActivity.js
 import React, { useState } from "react";
-import { Link, } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { createActivity } from "../utils/HandleAPIs";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import Navbar from "./Navbar";
+import "../styles/AddActivity.css"; // Import the CSS file
 
 const AddActivity = ({ onAddActivity }) => {
   const [activity, setActivity] = useState({
@@ -53,60 +53,55 @@ const AddActivity = ({ onAddActivity }) => {
     }
   };
 
-
   return (
-    <div>
-        <ul>
-          <li><Link to="/home">Home</Link></li>
-          <li><Link to="/add-activity">Add Activity</Link></li>
-          <li><Link to="/near-you">Near You</Link></li>
-          <li><Link to="/first-aid-help">First Aid Help</Link></li>
-          <li><Link to="/view-pet">View Pet</Link></li>
-        </ul>
-      <h1>Add Activity</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Activity Name:</label>
-          <input type="text" name="name" value={activity.name} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Time:</label>
-          <input type="time" name="time" value={activity.time} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Notes:</label>
-          <textarea name="notes" value={activity.notes} onChange={handleChange}></textarea>
-        </div>
-        <div>
-          <label>Type:</label>
-          <select name="type" value={activity.type} onChange={handleChange}>
-            <option value="one-time">One-time</option>
-            <option value="recurring">Recurring</option>
-          </select>
-        </div>
-        {activity.type === "one-time" && (
-          <div>
-            <label>Date:</label>
-            <input type="date" name="date" value={activity.date} onChange={handleChange} />
+    <div className="add-activity-page">
+      <Navbar />
+      <main className="add-activity-content">
+        <h1>Add Activity</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input type="text" name="name" value={activity.name} onChange={handleChange} placeholder=" " />
+            <label>Activity Name:</label>
           </div>
-        )}
-        {activity.type === "recurring" && (
-          <div>
-            <label>Frequency:</label>
-            <select name="frequency" value={activity.frequency} onChange={handleChange}>
-              <option value="everyday">Everyday</option>
-              <option value="interval">Every X Days</option>
+          <div className="form-group">
+            <input type="time" name="time" value={activity.time} onChange={handleChange} placeholder=" " />
+            <label>Time:</label>
+          </div>
+          <div className="form-group">
+            <textarea name="notes" value={activity.notes} onChange={handleChange} placeholder=" "></textarea>
+            <label>Notes:</label>
+          </div>
+          <div className="form-group">
+            <select name="type" value={activity.type} onChange={handleChange}>
+              <option value="one-time">One-time</option>
+              <option value="recurring">Recurring</option>
             </select>
-            {activity.frequency === "interval" && (
-              <div>
-                <label>Interval (days):</label>
-                <input type="number" name="interval" value={activity.interval} onChange={handleChange} />
-              </div>
-            )}
+            <label>Type:</label>
           </div>
-        )}
-        <button type="submit">Submit</button>
-      </form>
+          {activity.type === "one-time" && (
+            <div className="form-group">
+              <input type="date" name="date" value={activity.date} onChange={handleChange} placeholder=" " />
+              <label>Date:</label>
+            </div>
+          )}
+          {activity.type === "recurring" && (
+            <div className="form-group">
+              <select name="frequency" value={activity.frequency} onChange={handleChange}>
+                <option value="everyday">Everyday</option>
+                <option value="interval">Every X Days</option>
+              </select>
+              <label>Frequency:</label>
+              {activity.frequency === "interval" && (
+                <div className="form-group">
+                  <input type="number" name="interval" value={activity.interval} onChange={handleChange} placeholder=" " />
+                  <label>Interval (days):</label>
+                </div>
+              )}
+            </div>
+          )}
+          <button type="submit">Submit</button>
+        </form>
+      </main>
     </div>
   );
 };
