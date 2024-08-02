@@ -1,5 +1,6 @@
 # pet-care-app
 how to run : 
+
 add your own .env file in the server folder with your own mongodb link saved as MONGO_URL = blabla
 cd server
 npm install
