@@ -1,5 +1,80 @@
-/* src/styles/Home.css */
+
+.home-page {
+  padding-top: 60px; 
+  min-height: 100vh; 
+  background: linear-gradient(to bottom right, rgba(79, 8, 100, 0.442), rgba(213, 131, 238, 0.6)), url('./bg3.jpeg'); /* Gradient overlay + image */
+  background-size: cover; 
+  background-position: center; 
+  color: #fff; 
+}
+
+/* becuase i'm blind*/
+.home-page * {
+  font-size: 20px; 
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+}
+
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.filters select {
+  margin-right: 10px;
+  padding: 10px; 
+  font-size: 20px; 
+}
+
+.progress-bar-container {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 20px;
+  margin-top: 10px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #934caf;
+  width: 0%; 
+  transition: width 0.5s ease-in-out;
+}
+
+.activity-list {
+  list-style: none;
+  padding: 0;
+}
+
+.activity-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.activity-list label {
+  margin-left: 10px;
+}
+
 .strikethrough {
-    text-decoration: line-through;
-  }
-  
+  text-decoration: line-through;
+}
+
+.manual-check-btn {
+  padding: 15px 30px; 
+  font-size: 20px;
+  background-color: #be32ec;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.manual-check-btn:hover {
+  background-color: #500281;
+}

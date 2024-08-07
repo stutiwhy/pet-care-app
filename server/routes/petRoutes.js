@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Pet = require('../models/Pet');
 
-// Create or update the single pet
 router.post('/', async (req, res) => {
   const petData = req.body;
   try {
@@ -19,7 +18,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get the single pet
 router.get('/', async (req, res) => {
   try {
     const pet = await Pet.findOne();
